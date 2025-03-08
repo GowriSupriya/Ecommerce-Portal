@@ -135,7 +135,7 @@ Contributions are welcome! Follow these steps:
 ---
 
 ## 📧 **Contact**
-👨‍💻 **Developed by:** *Your Name*  
+👨‍💻 **Developed by:** *Gandu Gowri Supriya*  
 📩 Email: [gowrisupriya10@gmail.com.com] 
 🔗 GitHub: [github.com/GowriSupriya] 
 
