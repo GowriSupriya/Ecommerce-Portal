@@ -1,67 +1,65 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import mockProducts from "../api/mockProductData";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "./ProductForm.css";
 
-const ProductForm = ({ isEdit }) => {
+const ProductForm = () => {
   const navigate = useNavigate();
-  const { productId } = useParams(); // Get product ID from URL
-  const storeId = localStorage.getItem("storeId");
+  const { id } = useParams(); // Get the product ID from the URL
+  const location = useLocation();
+  const existingProduct = location.state?.product || null;
 
-  const [product, setProduct] = useState({
-    name: "",
-    price: "",
+  const [formData, setFormData] = useState({
+    id: existingProduct?.id || id || "",
+    name: existingProduct?.name || "",
+    price: existingProduct?.price || "",
+    storeId: localStorage.getItem("storeId"),
   });
 
   useEffect(() => {
-    if (isEdit && productId) {
-      const storedProducts = JSON.parse(localStorage.getItem("products")) || mockProducts;
-      
-      // Ensure both are compared as the same type
-      const existingProduct = storedProducts.find(p => p.id === Number(productId));
-
-      if (existingProduct) {
-        setProduct(existingProduct);
+    if (!existingProduct && id) {
+      // Fetch product from localStorage if not in state
+      const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
+      const productToEdit = storedProducts.find((p) => p.id === id);
+      if (productToEdit) {
+        setFormData(productToEdit);
+      } else {
+        console.error("Error: Product not found in localStorage!");
       }
     }
-  }, [isEdit, productId]); // Dependencies ensure this runs only when needed
+  }, [existingProduct, id]);
 
   const handleChange = (e) => {
-    setProduct({ ...product, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let storedProducts = JSON.parse(localStorage.getItem("products")) || [];
 
-    if (!product.name || !product.price) {
-      alert("Please fill all fields!");
-      return;
-    }
-
-    let updatedProducts = JSON.parse(localStorage.getItem("products")) || mockProducts;
-
-    if (isEdit) {
-      updatedProducts = updatedProducts.map(p =>
-        p.id === Number(productId) ? { ...product, id: Number(productId) } : p
+    if (existingProduct || id) {
+      // Update existing product
+      storedProducts = storedProducts.map((p) =>
+        p.id === formData.id ? formData : p
       );
     } else {
-      const newProduct = { ...product, id: updatedProducts.length + 1, storeId };
-      updatedProducts.push(newProduct);
+      // Generate a unique ID for the new product
+      const newProduct = { ...formData, id: `P${Date.now()}` };
+      storedProducts.push(newProduct);
     }
 
-    localStorage.setItem("products", JSON.stringify(updatedProducts));
+    localStorage.setItem("products", JSON.stringify(storedProducts));
     navigate("/products");
   };
 
   return (
     <div className="product-form">
-      <h2>{isEdit ? "Edit Product" : "Add Product"}</h2>
+      <h2>{existingProduct || id ? "Edit Product" : "Add Product"}</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Product Name" value={product.name} onChange={handleChange} required />
-        <input type="number" name="price" placeholder="Price" value={product.price} onChange={handleChange} required />
-        <div className="button-container">
-            <button type="submit">{isEdit ? "Update Product" : "Add Product"}</button>
-            <button type="button" onClick={() => navigate("/products")} className="cancel-btn">Cancel</button>
+        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Product Name" required />
+        <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price" required />
+        <div>
+          <button type="submit">Save</button>
+          <button type="button" className="cancel-btn" onClick={() => navigate("/products")}>Cancel</button>
         </div>
       </form>
     </div>
@@ -69,6 +67,19 @@ const ProductForm = ({ isEdit }) => {
 };
 
 export default ProductForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
