@@ -1,0 +1,182 @@
+.product-list {
+    width: 85%;
+    max-width: 1200px;
+    margin: 20px auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers elements horizontally */
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .search-bar {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .add-btn {
+    margin-bottom: 15px;
+    padding: 12px 18px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .add-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Table is centered horizontally */
+  .table-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  table {
+    width: 90%;
+    max-width: 800px;
+    border-collapse: collapse;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }
+  
+  button {
+    margin: 5px;
+    padding: 10px 14px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:nth-child(1) { /* Edit Button */
+    background-color: #ffc107;
+    color: black;
+    margin-right:5px;
+  }
+  
+  button:nth-child(2) { /* Delete Button */
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 1024px) {
+    .product-list {
+      width: 90%;
+    }
+  
+    .search-bar {
+      width: 90%;
+      max-width: 500px;
+    }
+  
+    table {
+      width: 95%;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .product-list {
+      width: 95%;
+    }
+  
+    h2 {
+      font-size: 22px;
+    }
+  
+    .search-bar {
+      width: 100%;
+      max-width: 400px;
+      font-size: 14px;
+    }
+  
+    .add-btn {
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+  
+    .table-container {
+      overflow-x: auto;
+    }
+  
+    table {
+      width: 100%;
+      font-size: 14px;
+    }
+  
+    th, td {
+      padding: 8px;
+    }
+  
+    button {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .product-list {
+      width: 100%;
+      padding: 10px;
+    }
+  
+    h2 {
+      font-size: 20px;
+    }
+  
+    .search-bar {
+      width: 95%;
+      max-width: 300px;
+      font-size: 12px;
+    }
+  
+    .add-btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+  
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+  
+    table {
+      width: 100%;
+      font-size: 12px;
+    }
+  
+    th, td {
+      padding: 6px;
+    }
+  
+    button {
+      padding: 6px 10px;
+      font-size: 11px;
+    }
+  }
+  
+  
+  
